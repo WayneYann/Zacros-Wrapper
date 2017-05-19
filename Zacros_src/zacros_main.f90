@@ -134,7 +134,7 @@ open(unit = SAfnum, status='unknown',file=trim(SAfname),form='unformatted',ACCES
 !open(unit = clusteroccwrite, status='unknown',file=trim(clusoccfname),form='unformatted',ACCESS='STREAM')			! Clusters
 !open(unit = Ewrite, status='unknown',file=trim(Efname),form='unformatted',ACCESS='STREAM')							! Time and energy
 !open(unit = Histwrite, status='unknown',file=trim(Histfname),form='unformatted',ACCESS='STREAM')					! History
-!open(unit = Propfnum, status='unknown',file=trim(Propfname),form='unformatted',ACCESS='STREAM')						! Propensities
+open(unit = Propfnum, status='unknown',file=trim(Propfname),form='unformatted',ACCESS='STREAM')						! Propensities
 open(unit = PropCountfnum, status='unknown',file=trim(PropCountfname),form='unformatted',ACCESS='STREAM')			! Integral propensities
 !open(unit = procstatfnum, status='unknown',file=trim(procstatfname),form='unformatted',ACCESS='STREAM')				! Reaction event frequencies
 
@@ -262,6 +262,7 @@ close(iprocstat)
 close(iprocdbg)
 close(SAfnum)
 close(PropCountfnum)
+close(Propfnum)
 
 stop
 
