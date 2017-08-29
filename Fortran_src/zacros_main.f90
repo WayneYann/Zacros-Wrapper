@@ -137,6 +137,7 @@ open(unit = SAfnum, status='unknown',file=trim(SAfname),form='unformatted',ACCES
 open(unit = Propfnum, status='unknown',file=trim(Propfname),form='unformatted',ACCESS='STREAM')						! Propensities
 open(unit = PropCountfnum, status='unknown',file=trim(PropCountfname),form='unformatted',ACCESS='STREAM')			! Integral propensities
 !open(unit = procstatfnum, status='unknown',file=trim(procstatfname),form='unformatted',ACCESS='STREAM')				! Reaction event frequencies
+open(unit = IntegSpecfnum, status='unknown',file=trim(IntegSpecfname),form='unformatted',ACCESS='STREAM')			! Integral species counts
 
 do while (curtime < maxtime .and. curstep < maxsteps)
     
@@ -263,6 +264,7 @@ close(iprocdbg)
 close(SAfnum)
 close(PropCountfnum)
 close(Propfnum)
+close(IntegSpecfnum)
 
 stop
 

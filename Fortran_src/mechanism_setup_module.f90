@@ -45,6 +45,7 @@ real(8), allocatable :: elemstep_avgtime(:)
 real(8), allocatable :: elemstepangles(:,:)
 real(8), allocatable :: elemsteporientationangles(:)
 real(8), allocatable :: propCountvec(:)
+real(8), allocatable :: spec_cum(:)         ! cumulative species counts
 
 logical, allocatable :: preexpisconst(:)
 logical, allocatable :: elemstepnomirrorimgs(:)
@@ -221,6 +222,7 @@ allocate(elemstep_noccur(0:nelemsteps))
 allocate(elemstep_avgtime(0:nelemsteps))
 
 allocate(propCountvec(1:nelemsteps))
+allocate(spec_cum(1:nsurfspecs))
 
 ! reverselemstep(i1) gives the reverse step of elementary step i1. If step i1 is
 ! irreversible reverselemstep(i1) == 0
@@ -313,6 +315,10 @@ enddo
 
 do i = 1,nelemsteps
 	propCountvec(i) = 0.d0
+enddo
+
+do i = 1,nsurfspecs
+	spec_cum(i) = 0.d0
 enddo
 
 do i = 1,nelemsteps

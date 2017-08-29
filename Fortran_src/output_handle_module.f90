@@ -255,7 +255,8 @@ if (specnum_on_event) then
 			write(PropCountfnum) (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams)
 			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
 			write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis 
-			
+			write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+            
         endif
         
     else
@@ -279,7 +280,8 @@ if (specnum_on_event) then
 			write(PropCountfnum) (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams)
 			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
 			write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis 
-		
+            write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+        
         endif
         
     endif
@@ -307,7 +309,8 @@ else
 			write(PropCountfnum) (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams)
 			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
 			write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis 
-			
+			write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+            
             specnumtime = specnumtime * dtspecnum
 
         enddo
@@ -335,7 +338,8 @@ else
 			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
 			write(SAfnum) (elemstep_noccur(i) - propCountvec(i), i=1, nSAparams)
 			!write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis, Include truncation term
-				  
+			write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+            
             specnumtime = specnumtime + dtspecnum
 
         enddo
@@ -349,6 +353,12 @@ do i = 1,nelemsteps
 		propCountvec(i) = propCountvec(i) + propvec(i) * dtPrior
 	endif
 end do
+
+do i = 1,nsurfspecs
+    if (dtPrior > 0.d0) then
+        spec_cum(i) = spec_cum(i) + ( sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i ) * dtPrior
+    endif
+enddo
 
 end subroutine save_specnums
 

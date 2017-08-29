@@ -147,6 +147,10 @@ integer, parameter :: Propfnum = 209
 character(30), parameter :: PropCountfname = 'PropCounter_output.bin'
 integer, parameter :: PropCountfnum = 210
 
+! Running counter of species count * dt
+character(30), parameter :: IntegSpecfname = 'IntegSpec_output.bin'
+integer, parameter :: IntegSpecfnum = 215
+
 ! cluster occupancy matrix
 character(30), parameter :: clusoccfname = 'clusterocc.bin'
 integer, parameter :: clusteroccwrite = 211
