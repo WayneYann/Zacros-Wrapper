@@ -126,18 +126,11 @@ write(iwrite,'(a)')   '~~~~~~~~~~~~~~~~~~~~~~'
 
 call Cpu_Time(t1) ! function for calculating elapsed CPU time
 
-! Open the output files for the sensitivity analysis data
-!open(unit = SAfnum, status='unknown',file=trim(SAfname),form='unformatted',ACCESS='STREAM')
-
-open(unit = SAfnum, status='unknown',file=trim(SAfname),form='unformatted',ACCESS='STREAM')
-!open(unit = Specfnum, status='unknown',file=trim(Specfname),form='unformatted',ACCESS='STREAM')						! Species numbers
-!open(unit = clusteroccwrite, status='unknown',file=trim(clusoccfname),form='unformatted',ACCESS='STREAM')			! Clusters
-!open(unit = Ewrite, status='unknown',file=trim(Efname),form='unformatted',ACCESS='STREAM')							! Time and energy
-!open(unit = Histwrite, status='unknown',file=trim(Histfname),form='unformatted',ACCESS='STREAM')					! History
-open(unit = Propfnum, status='unknown',file=trim(Propfname),form='unformatted',ACCESS='STREAM')						! Propensities
-open(unit = PropCountfnum, status='unknown',file=trim(PropCountfname),form='unformatted',ACCESS='STREAM')			! Integral propensities
-!open(unit = procstatfnum, status='unknown',file=trim(procstatfname),form='unformatted',ACCESS='STREAM')				! Reaction event frequencies
-open(unit = IntegSpecfnum, status='unknown',file=trim(IntegSpecfname),form='unformatted',ACCESS='STREAM')			! Integral species counts
+! Open extra output files
+open(unit = SAfnum, status='unknown',file=trim(SAfname))					    ! Trajectory derivatives for sensitivity analysis
+open(unit = Propfnum, status='unknown',file=trim(Propfname))					! Propensities
+open(unit = PropCountfnum, status='unknown',file=trim(PropCountfname))			! Time integrated propensities				! Reaction event frequencies
+open(unit = IntegSpecfnum, status='unknown',file=trim(IntegSpecfname))			! Time integrated species counts
 
 do while (curtime < maxtime .and. curstep < maxsteps)
     
@@ -162,9 +155,9 @@ do while (curtime < maxtime .and. curstep < maxsteps)
     endif
     
     mproc = event_times_labels(1)
-	dtPrior = curtime - prevtime
     prevtime = curtime
     curtime = event_times_heap(1)
+    dtPrior = curtime - prevtime
     if (curtime<prevtime) then
        write(*,*) prevtime, curtime
        write(*,*) 'ERROR: current time is smaller than previous time'

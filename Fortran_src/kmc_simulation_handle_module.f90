@@ -344,15 +344,7 @@ subroutine realize_process(mproc)
       mprocsitemap(i) = proctypesites(mproc,i)
   enddo
 
-  ! Fill in propensity values
-  do MPNi = 1,nSAparams  
-   propvec(MPNi) = 0				   
-  end do
-
-  ! Fill in the propvec values
-  DO i = 1, nprocesses
-	propvec(proctypesites(i,0)) = propvec(proctypesites(i,0)) + procpropenst0(i)			! add the propensity of each reaction to the appropriate place in the vector
-  END DO
+  
   
   ! Update the value of W
   do par_ind = 1,nSAparams
@@ -631,8 +623,14 @@ subroutine realize_process(mproc)
 !$  nbthreads = omp_get_num_threads()
 !$OMP END SINGLE
 
+
+    
+
     ! Now calculate the new rates for the processes that need to be updated
 !$OMP DO 
+
+    
+
     do i = 1,workarray%procsupdate(0)
         
         iproc = workarray%procsupdate(i)
@@ -716,7 +714,9 @@ subroutine realize_process(mproc)
 !$    enddo
     enddo
 
-  continue
+    
+        
+    continue
 
   ! Next, find and add the new processes in which the products can participate
   ! for every product molecule of that step
@@ -759,6 +759,17 @@ subroutine realize_process(mproc)
       continue
   enddo
 
+  ! Fill in the propvec values
+
+  ! Fill in propensity values
+  do MPNi = 1,nSAparams  
+   propvec(MPNi) = 0				   
+  end do
+  
+  DO i = 1, nprocesses
+      propvec(proctypesites(i,0)) = propvec(proctypesites(i,0)) + procpropenst0(i)			! add the propensity of each reaction to the appropriate place in the vector
+  END DO
+  
   !else ! mstam: Debug - Reinitialize everything
   !
   !    deallocate(globclustypesites)

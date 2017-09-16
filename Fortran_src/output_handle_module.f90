@@ -246,16 +246,15 @@ if (specnum_on_event) then
                   (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs), &
                   (gasspecsnums(i),i=1,ngasspecs)
 				  
-			! Extra binary output
-			!write(Specfnum) (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs)	! Record species numbers in binary file
-			!write(clusteroccwrite) (clusterOcc(i) / clustergraphmultipl(i), i=1, nclusters)
-			!write(Ewrite) specnumtime	
-			!write(Ewrite) globalenergy
-			write(Propfnum) (propvec(i), i=1, nSAparams)
-			write(PropCountfnum) (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams)
-			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
-			write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis 
-			write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+			! Extra output files
+            write(Propfnum,'(ES30.16,1x)', advance='no') (propvec(i), i=1, nSAparams)
+            write(Propfnum,*) ' '
+            write(PropCountfnum,'(ES30.16,1x)', advance='no') (propCountvec(i) , i=1, nSAparams) 	! Include truncation term																		! Write process statistics info			
+			write(PropCountfnum,*) ' '
+            write(SAfnum,'(ES30.16,1x)', advance='no') (elemstep_noccur(i) - propCountvec(i) , i=1, nSAparams)				! Record W for sensitivity analysis, Include truncation term
+			write(SAfnum,*) ' '
+            write(IntegSpecfnum,'(ES30.16,1x)', advance='no') (spec_cum(i) , i=1, nsurfspecs)
+            write(IntegSpecfnum,*) ' '
             
         endif
         
@@ -271,16 +270,15 @@ if (specnum_on_event) then
                   (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs), &
                   (gasspecsnums(i),i=1,ngasspecs)        
         
-			! Extra binary output
-			!write(Specfnum) (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs)	! Record species numbers in binary file
-			!write(clusteroccwrite) (clusterOcc(i) / clustergraphmultipl(i), i=1, nclusters)
-			!write(Ewrite) specnumtime	
-			!write(Ewrite) globalenergy
-			write(Propfnum) (propvec(i), i=1, nSAparams)
-			write(PropCountfnum) (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams)
-			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
-			write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis 
-            write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+			! Extra output files
+            write(Propfnum,'(ES30.16,1x)', advance='no') (propvec(i), i=1, nSAparams)
+            write(Propfnum,*) ' '
+            write(PropCountfnum,'(ES30.16,1x)', advance='no') (propCountvec(i) , i=1, nSAparams) 	! Include truncation term																		! Write process statistics info			
+			write(PropCountfnum,*) ' '
+            write(SAfnum,'(ES30.16,1x)', advance='no') (elemstep_noccur(i) - propCountvec(i) , i=1, nSAparams)				! Record W for sensitivity analysis, Include truncation term
+			write(SAfnum,*) ' '
+            write(IntegSpecfnum,'(ES30.16,1x)', advance='no') (spec_cum(i)  , i=1, nsurfspecs)
+            write(IntegSpecfnum,*) ' '
         
         endif
         
@@ -300,16 +298,15 @@ else
                   (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs), &
                   (gasspecsnums(i),i=1,ngasspecs)     
 				  
-			! Extra binary output
-			!write(Specfnum) (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs)	! Record species numbers in binary file
-			!write(clusteroccwrite) (clusterOcc(i) / clustergraphmultipl(i), i=1, nclusters)
-			!write(Ewrite) specnumtime
-			!write(Ewrite) globalenergy
-			write(Propfnum) (propvec(i), i=1, nSAparams)
-			write(PropCountfnum) (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams)
-			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
-			write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis 
-			write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+			! Extra output files
+            write(Propfnum,'(ES30.16,1x)', advance='no') (propvec(i), i=1, nSAparams)
+            write(Propfnum,*) ' '
+            write(PropCountfnum,'(ES30.16,1x)', advance='no') (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams) 	! Include truncation term																		! Write process statistics info			
+			write(PropCountfnum,*) ' '
+            write(SAfnum,'(ES30.16,1x)', advance='no') (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis, Include truncation term
+			write(SAfnum,*) ' '
+            write(IntegSpecfnum,'(ES30.16,1x)', advance='no') (spec_cum(i) + ( sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i ) * (specnumtime - prevtime), i=1, nsurfspecs)
+            write(IntegSpecfnum,*) ' '
             
             specnumtime = specnumtime * dtspecnum
 
@@ -327,18 +324,15 @@ else
                   (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs), &
                   (gasspecsnums(i),i=1,ngasspecs)
 				  
-			! Extra binary output
-			!write(Specfnum) (sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i,i=1,nsurfspecs)	! Record species numbers in binary file
-			!write(clusteroccwrite) (clusterOcc(i) / clustergraphmultipl(i), i=1, nclusters)
-			!write(Ewrite) specnumtime	
-			!write(Ewrite) globalenergy
-			write(Propfnum) (propvec(i), i=1, nSAparams)
-			!write(PropCountfnum) (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams) 	! Include truncation term
-			write(PropCountfnum) (propCountvec(i), i=1, nSAparams)
-			!write(procstatfnum) (elemstep_noccur(i), i = 1, nelemsteps)																		! Write process statistics info			
-			write(SAfnum) (elemstep_noccur(i) - propCountvec(i), i=1, nSAparams)
-			!write(SAfnum) (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis, Include truncation term
-			write(IntegSpecfnum) (spec_cum(i), i=1, nsurfspecs)
+			! Extra output files
+            write(Propfnum,'(ES30.16,1x)', advance='no') (propvec(i), i=1, nSAparams)
+            write(Propfnum,*) ' '
+            write(PropCountfnum,'(ES30.16,1x)', advance='no') (propCountvec(i) + propvec(i) * (specnumtime - prevtime), i=1, nSAparams) 	! Include truncation term																		! Write process statistics info			
+			write(PropCountfnum,*) ' '
+            write(SAfnum,'(ES30.16,1x)', advance='no') (elemstep_noccur(i) - ( propCountvec(i) + propvec(i) * (specnumtime - prevtime) ), i=1, nSAparams)				! Record W for sensitivity analysis, Include truncation term
+			write(SAfnum,*) ' '
+            write(IntegSpecfnum,'(ES30.16,1x)', advance='no') (spec_cum(i) + ( sum(adsorbspecposi(1:nadsorb,0),mask = adsorbspecposi(1:nadsorb,0) == i)/i ) * (specnumtime - prevtime), i=1, nsurfspecs)
+            write(IntegSpecfnum,*) ' '
             
             specnumtime = specnumtime + dtspecnum
 
